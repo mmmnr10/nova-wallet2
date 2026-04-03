@@ -39,7 +39,7 @@ export default function HomeScreen() {
       Notifications.scheduleNotificationAsync({
         content: {
           title: "Transaktion mottagen! 💸",
-          body: "Du har precis tagit emot 5 000 kr från Skatteverket.",
+          body: "Du har precis tagit emot 6 000 kr från Skatteverket.",
           sound: true,
         },
         trigger: null, // Send immediately after the timeout
