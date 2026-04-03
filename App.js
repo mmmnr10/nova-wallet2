@@ -3,7 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { StatusBar } from 'expo-status-bar';
 import { Ionicons } from '@expo/vector-icons';
-import { View, Text, TouchableOpacity, StyleSheet, ActivityIndicator } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, ActivityIndicator, Platform } from 'react-native';
 import * as LocalAuthentication from 'expo-local-authentication';
 import colors from './src/theme/colors';
 
@@ -27,6 +27,12 @@ export default function App() {
   }, []);
 
   const checkBiometrics = async () => {
+    // Om användaren besöker appen via Vercel (webbläsare) så hoppar vi över FaceID.
+    if (Platform.OS === 'web') {
+      setIsAuthenticated(true);
+      return;
+    }
+
     const compatible = await LocalAuthentication.hasHardwareAsync();
     const enrolled = await LocalAuthentication.isEnrolledAsync();
     setHasBiometrics(compatible && enrolled);
